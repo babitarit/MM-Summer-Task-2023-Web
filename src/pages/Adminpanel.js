@@ -4,6 +4,7 @@ import Layout from '../components/Layout'
 
 const  Adminpanel = () => {
   return (
+    
    <Layout>
 <h1>Contact Page</h1>
    </Layout>

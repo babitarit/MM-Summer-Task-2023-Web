@@ -4,14 +4,19 @@ import ArticleIcon from '@mui/icons-material/Article';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import'../styles/NavbarStyle.css'
-
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
   const[mobileOpen, setmobileOpen] = useState(false)
+  const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
+
+
+  
 //handle menu click
 const handleDrawerToggle = () =>{
   setmobileOpen(!mobileOpen)
 }
+
 
   //menu drawer
   const drawer = ( 
@@ -33,8 +38,9 @@ const handleDrawerToggle = () =>{
     <Link to={'/about'}>About</Link>
   </li>
   <li>
-    <Link to={'/ Adminpanel'}>Admin Panel</Link>
+  <button onClick={() => loginWithRedirect()}>Admin  Panel</button>
   </li>
+ 
 
 </ul>
 
@@ -68,10 +74,25 @@ const handleDrawerToggle = () =>{
   <li>
     <Link to={'/about'}>About</Link>
   </li>
-  <li>
-    <Link to={'/Adminpanel'}>Admin Panel</Link>
-  </li>
 
+
+  {
+    isAuthenticated ? (<li>
+  <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+      Log Out
+    </button>
+  </li>)
+  :(<li>
+  <button onClick={() => loginWithRedirect()}>Log In</button>
+  </li>)
+  }
+
+
+
+ 
+  
+  
+  
 </ul>
 
 
